@@ -1,9 +1,12 @@
-Aggrenda iWidget
-================
+Aggrenda iWidget Server
+=======================
 
 Renders Aggrenda widgets as images.
 
-This is intended to be used in `<img>` elements in environments where iframes aren't supported.
+This is intended to be used in `<img>` elements,
+especially in environments where `<iframe>` isn't supported.
+
+[http://iwidgets.aggrenda.com](http://iwidgets.aggrenda.com)
 
 
 ## Usage
@@ -13,6 +16,8 @@ This is intended to be used in `<img>` elements in environments where iframes ar
   <img src="http://iwidgets.aggrenda.com/:username/:calendar/:view/embed/" alt="Events" />
 </a>
 ```
+
+Note the trailing `/embed/`. This is required.
 
 #### Parameters
 
@@ -84,6 +89,3 @@ This is intended to be used in `<img>` elements in environments where iframes ar
 <a href="http://aggrenda.com/aggrenda-pgh/technology-events/?past" title="Click for details" target="_blank">
   <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/list/embed/?width=852&amp;past&&amp;page-size=3" alt="Past" />
 </a>
-
-
-[http://iwidgets.aggrenda.com](http://iwidgets.aggrenda.com)

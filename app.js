@@ -92,9 +92,6 @@ http.createServer(function(req, res) {
     });
 
     // TODO: Cache the image
-
-    // Delete the file
-    fs.unlink(filename, function() {});
   });
 }).listen(settings.PORT);
 console.log(' * Listening on http://localhost:' + settings.PORT + '/');

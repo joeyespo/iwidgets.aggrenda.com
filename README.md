@@ -33,22 +33,43 @@ This is intended to be used in `<img>` elements in environments where iframes ar
 
 ## Examples
 
+
 ### Monthly calendar
 
+```html
 <a href="http://aggrenda.com/aggrenda-pgh/startup-events/monthly/" title="Click for details" target="_blank">
-  ![Startup Events](http://iwidgets.aggrenda.com/aggrenda-pgh/startup-events/monthly/embed/?width=852)
+  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/startup-events/monthly/embed/" alt="Startup Events" />
 </a>
+```
+
+<a href="http://aggrenda.com/aggrenda-pgh/startup-events/monthly/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/startup-events/monthly/embed/?width=852" alt="Startup Events" />
+</a>
+
 
 ### Your next event
 
-<a href="http://aggrenda.com/aggrenda-pgh/startup-events/list/" title="Click for details" target="_blank">
-  ![Startup Events - Next Event](http://iwidgets.aggrenda.com/aggrenda-pgh/startup-events/next-event/embed/?width=852)
+```html
+<a href="http://aggrenda.com/aggrenda-pgh/startup-events/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/startup-events/monthly/next-event/embed/" alt="Next Up" />
 </a>
+```
+
+<a href="http://aggrenda.com/aggrenda-pgh/startup-events/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/startup-events/next-event/embed/?width=852" alt="Next Up" />
+</a>
+
 
 ### List of events
 
+```html
 <a href="http://aggrenda.com/aggrenda-pgh/startup-events/" title="Click for details" target="_blank">
-  ![Startup Events List](http://iwidgets.aggrenda.com/aggrenda-pgh/startup-events/list/embed/?width=852)
+  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/startup-events/list/embed/" alt="Event List" />
+</a>
+```
+
+<a href="http://aggrenda.com/aggrenda-pgh/startup-events/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/startup-events/list/embed/?width=852" alt="Event List" />
 </a>
 
 

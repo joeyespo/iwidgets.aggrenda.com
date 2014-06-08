@@ -73,4 +73,17 @@ This is intended to be used in `<img>` elements in environments where iframes ar
 </a>
 
 
+### Past three events
+
+```html
+<a href="http://aggrenda.com/aggrenda-pgh/technology-events/?past" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/list/embed/?past&page-size=3" alt="Past" />
+</a>
+```
+
+<a href="http://aggrenda.com/aggrenda-pgh/technology-events/?past" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/list/embed/?width=852&amp;past&&amp;page-size=3" alt="Past" />
+</a>
+
+
 [http://iwidgets.aggrenda.com](http://iwidgets.aggrenda.com)

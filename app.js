@@ -1,5 +1,7 @@
-var http = require('http');
 var fs = require('fs');
+var url = require('url');
+var http = require('http');
+var temp = require('temp');
 var webshot = require('webshot');
 var merge = require('./helpers').merge;
 var settings = require('./settings');
@@ -9,57 +11,90 @@ var settings = require('./settings');
 try {
   var settingsLocal = require('./settings-local');
 }
-catch(e) {
+catch (e) {
   var settingsLocal = {};
 }
 settings = merge(settings, settingsLocal);
 
 
-// Configure libraries
-var options = {
-  screenSize: {
-   width: settings.DEFAULT_SHOT_WIDTH,          // TODO: Grab from URL parameter
-   height: settings.DEFAULT_SHOT_MIN_HEIGHT,    // TODO: Grab 'min-height' from URL parameter
-  },
-  shotSize: {
-    width: settings.DEFAULT_SHOT_WIDTH,
-   height: settings.DEFAULT_SHOT_MIN_HEIGHT,
-  },
-  errorIfStatusIsNot200: true,
-};
-
-
-// TODO: Grab from URL parameter
-// TODO: urlencode
-var username = 'joeyespo';
-var calendar = 'startupdigest';
-
-
 // Run server
 http.createServer(function(req, res) {
-    // TODO: Check cache for widget image
+  var urlParts = url.parse(req.url, true);
+  var query = urlParts.query;
+  var urlPath = urlParts.pathname;
 
-  console.log('Requested:', username + '/' + calendar);
-  webshot('http://aggrenda.com/' + username + '/' + calendar + '/monthly/embed/', options, function(err, renderStream) {
+  if (urlParts.pathname == '/') {
+    res.writeHead(302, {
+      'Location': 'http://aggrenda.com'
+    });
+    res.end();
+    return;
+  }
+
+  // Validate path and split into parts
+  var urlPathParts = urlPath.split('/').filter(function(s) { return s; });
+  if (urlPathParts.length != 4 || urlPathParts[3] != 'embed') {
+    console.log('***REQUEST ERROR*** Invalid path:', urlPath);
+    res.writeHead(404, {'Content-Type': 'text/plain'});
+    res.end('Not Found');
+    return;
+  }
+  // Get path variables
+  var username = urlPathParts[0];
+  var calendar = urlPathParts[1];
+  var view = urlPathParts[2];
+  // Validate view
+  if (view != 'monthly' && view != 'list' && view != 'next-event') {
+    console.log('***REQUEST ERROR*** View not supported:', view);
+    res.writeHead(404, {'Content-Type': 'text/plain'});
+    res.end('Not Found');
+    return;
+  }
+
+  var path = '/' + username + '/' + calendar + '/' + view + '/embed/';
+  var filename = temp.path({dir: 'tmp', suffix: '.png'});
+  console.log(filename);
+
+  // TODO: Check cache for widget image
+
+  // Get widget image
+  console.log('Requested:', path);
+  webshot('http://aggrenda.com' + path, filename, {
+    screenSize: {
+     width: query.width || settings.DEFAULT_SHOT_WIDTH,
+     height: query['min-height'] || settings.DEFAULT_SHOT_MIN_HEIGHT,
+    },
+    shotSize: {
+      width: query.width || settings.DEFAULT_SHOT_WIDTH,
+      height: 'all',
+    },
+    quality: settings.WEBSHOTS_QUALITY,
+  }, function(err) {
     if(err) {
-      // TODO: HTTP error
-      console.log('Error:', err);
-      res.writeHead(500, {'Content-Type': 'text/plain'});
-      res.end('Error rendering widget.');
+      console.log('Could not grab ' + path + ':', err);
+      res.writeHead(404, {'Content-Type': 'text/plain'});
+      res.end('Not Found');
+      return;
     }
 
-    // TODO: Cache widget image to disk and return that all at once after it finishes
+    // Respond with file
+    console.log('Rendered:', path);
+    fs.readFile(function(err, data) {
+      if (err) {
+        console.log('Error reading file for ' + path + ':', err);
+        res.writeHead(500, {'Content-Type': 'text/plain'});
+        res.end('Internal Server Error');
+        return;
+      }
+      res.writeHead(200, {'Content-Type': 'image/png'});
+      res.end(data, 'binary');
+      console.log('Responded:', path);
+    });
 
-    // Write image
-    console.log('Rendering:', username + '/' + calendar);
-    res.writeHead(200, {'Content-Type': 'image/png'});
-    renderStream.on('data', function(data) {
-      res.write(data.toString('binary'), 'binary');
-    });
-    renderStream.on('end', function(data) {
-      console.log('Finished:', username + '/' + calendar);
-      res.end();
-    });
+    // TODO: Cache the image
+
+    // Delete the file
+    fs.unlink(filename, function() {});
   });
 }).listen(settings.PORT);
 console.log(' * Listening on http://localhost:' + settings.PORT + '/');

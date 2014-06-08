@@ -9,6 +9,7 @@
   "author": "Joe Esposito <joe@joeyespo.com>",
   "license": "MIT",
   "dependencies": {
+    "temp": "^0.8.0",
     "webshot": "^0.14.0"
   }
 }

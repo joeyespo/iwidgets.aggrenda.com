@@ -1,6 +1,7 @@
 # Environment files
 settings-local.js
 node_modules
+tmp
 
 # OS-specific files
 .DS_Store

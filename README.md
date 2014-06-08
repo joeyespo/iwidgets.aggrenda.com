@@ -10,7 +10,7 @@ This is intended to be used in `<img>` elements in environments where iframes ar
 
 ```html
 <a href="http://aggrenda.com/:username/:calendar/" title="Click for details" target="_blank">
-  ![Startup Events](http://iwidgets.aggrenda.com/:username/:calendar/:view/embed/)
+  <img src="http://iwidgets.aggrenda.com/:username/:calendar/:view/embed/" alt="Events" />
 </a>
 ```
 

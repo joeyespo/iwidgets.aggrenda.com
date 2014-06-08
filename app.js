@@ -79,7 +79,7 @@ http.createServer(function(req, res) {
 
     // Respond with file
     console.log('Rendered:', path);
-    fs.readFile(function(err, data) {
+    fs.readFile(filename, function(err, data) {
       if (err) {
         console.log('Error reading file for ' + path + ':', err);
         res.writeHead(500, {'Content-Type': 'text/plain'});

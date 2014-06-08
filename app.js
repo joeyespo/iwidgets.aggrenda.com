@@ -20,6 +20,7 @@ settings = merge(settings, settingsLocal);
 // Run server
 http.createServer(function(req, res) {
   var urlParts = url.parse(req.url, true);
+  var search = urlParts.search;
   var query = urlParts.query;
   var urlPath = urlParts.pathname;
 
@@ -59,7 +60,7 @@ http.createServer(function(req, res) {
 
   // Get widget image
   console.log('Requested:', path);
-  webshot('http://aggrenda.com' + path, filename, {
+  webshot('http://aggrenda.com' + path + search, filename, {
     screenSize: {
      width: query.width || settings.DEFAULT_SHOT_WIDTH,
      height: query['min-height'] || settings.DEFAULT_SHOT_MIN_HEIGHT,

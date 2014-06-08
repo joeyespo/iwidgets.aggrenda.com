@@ -1,0 +1,14 @@
+{
+  "name": "iwidget.aggrenda.com",
+  "version": "0.0.1",
+  "description": "Image widget rendering service for Aggrenda.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joe Esposito <joe@joeyespo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "webshot": "^0.14.0"
+  }
+}

@@ -62,7 +62,7 @@ http.createServer(function(req, res) {
   }
 
   // Get
-  var calendarQualifiedName = '/' + username + '/' + calendar + '/' + view;
+  var calendarQualifiedName = username + '/' + calendar + '/' + view;
   var calendarFilename = calendarQualifiedName + IMAGE_FILE_EXTENSION;
   var embedPath = calendarQualifiedName + '/embed/';
   var renderFilename = temp.path({dir: 'tmp', suffix: IMAGE_FILE_EXTENSION});
@@ -85,7 +85,7 @@ http.createServer(function(req, res) {
 
   // Get widget image
   console.log('> Requested:', calendarQualifiedName);
-  webshot('http://aggrenda.com' + embedPath + search, renderFilename, {
+  webshot('http://aggrenda.com/' + embedPath + search, renderFilename, {
     screenSize: {
      width: query.width || settings.DEFAULT_SHOT_WIDTH,
      height: query['min-height'] || settings.DEFAULT_SHOT_MIN_HEIGHT,

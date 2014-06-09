@@ -61,7 +61,7 @@ http.createServer(function(req, res) {
     return;
   }
 
-  // Get
+  // Get paths
   var calendarQualifiedName = username + '/' + calendar + '/' + view;
   var calendarFilename = calendarQualifiedName + IMAGE_FILE_EXTENSION;
   var embedPath = calendarQualifiedName + '/embed/';

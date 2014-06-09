@@ -1,10 +1,16 @@
 var fs = require('fs');
 var url = require('url');
 var http = require('http');
+var aws = require('aws-sdk');
 var temp = require('temp');
 var webshot = require('webshot');
 var merge = require('./helpers').merge;
 var settings = require('./settings');
+
+
+// Constants
+IMAGE_FILE_EXTENSION = '.png';
+IMAGE_CONTENT_TYPE = 'image/png';
 
 
 // Load local settings
@@ -15,6 +21,9 @@ catch (e) {
   var settingsLocal = {};
 }
 settings = merge(settings, settingsLocal);
+// Configure libraries
+aws.config.region = settings.AWS_S3_REGION;
+var s3 = new aws.S3({params: {Bucket: settings.AWS_S3_BUCKET}});
 
 
 // Run server
@@ -52,15 +61,31 @@ http.createServer(function(req, res) {
     return;
   }
 
-  var path = '/' + username + '/' + calendar + '/' + view + '/embed/';
-  var filename = temp.path({dir: 'tmp', suffix: '.png'});
-  console.log(filename);
+  // Get
+  var calendarQualifiedName = '/' + username + '/' + calendar + '/' + view;
+  var calendarFilename = calendarQualifiedName + IMAGE_FILE_EXTENSION;
+  var embedPath = calendarQualifiedName + '/embed/';
+  var renderFilename = temp.path({dir: 'tmp', suffix: IMAGE_FILE_EXTENSION});
 
-  // TODO: Check cache for widget image
+  // Check cache for widget image
+  var respondedFromCache = false;
+  s3.getObject({
+    Key: calendarFilename,
+    ResponseContentType: IMAGE_CONTENT_TYPE,
+  }, function(err, data) {
+    if (err) {
+      // Ignore cache errors
+      return;
+    }
+    res.writeHead(200, {'Content-Type': IMAGE_CONTENT_TYPE});
+    res.end(data, 'binary');
+    respondedFromCache = true;
+    console.log('Responded from cache:', calendarQualifiedName);
+  });
 
   // Get widget image
-  console.log('Requested:', path);
-  webshot('http://aggrenda.com' + path + search, filename, {
+  console.log('Requested:', calendarQualifiedName);
+  webshot('http://aggrenda.com' + embedPath + search, renderFilename, {
     screenSize: {
      width: query.width || settings.DEFAULT_SHOT_WIDTH,
      height: query['min-height'] || settings.DEFAULT_SHOT_MIN_HEIGHT,
@@ -72,27 +97,45 @@ http.createServer(function(req, res) {
     quality: settings.WEBSHOTS_QUALITY,
   }, function(err) {
     if(err) {
-      console.log('Could not grab ' + path + ':', err);
+      console.log('Could not grab ' + calendarQualifiedName + ' calendar:', err);
       res.writeHead(404, {'Content-Type': 'text/plain'});
       res.end('Not Found');
       return;
     }
 
-    // Respond with file
-    console.log('Rendered:', path);
-    fs.readFile(filename, function(err, data) {
+    // Read resulting file
+    console.log('Rendered:', calendarQualifiedName);
+    fs.readFile(renderFilename, function(err, data) {
       if (err) {
-        console.log('Error reading file for ' + path + ':', err);
+        console.log('Error reading file for ' + calendarQualifiedName + ' calendar:', err);
         res.writeHead(500, {'Content-Type': 'text/plain'});
         res.end('Internal Server Error');
         return;
       }
-      res.writeHead(200, {'Content-Type': 'image/png'});
-      res.end(data, 'binary');
-      console.log('Responded:', path);
-    });
 
-    // TODO: Cache the image
+      // Respond with image, if not already done
+      if (!respondedFromCache) {
+        res.writeHead(200, {'Content-Type': IMAGE_CONTENT_TYPE});
+        res.end(data, 'binary');
+        console.log('Responded:', calendarQualifiedName);
+      }
+
+      // Cache image
+      s3.createBucket(function() {
+        s3.putObject({
+          ACL: 'public-read',
+          Key: calendarFilename,
+          Body: data,
+          ContentType: IMAGE_CONTENT_TYPE,
+        }, function(err, response) {
+          if (err) {
+            console.log('Error caching image for ' + calendarQualifiedName + ' calendar:', err);
+            return;
+          }
+          console.log('Cached:', calendarQualifiedName);
+        });
+      });
+    });
   });
 }).listen(settings.PORT);
 console.log(' * Listening on http://localhost:' + settings.PORT + '/');

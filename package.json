@@ -9,6 +9,7 @@
   "author": "Joe Esposito <joe@joeyespo.com>",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.0.0-rc.19",
     "temp": "^0.8.0",
     "webshot": "^0.14.0"
   }

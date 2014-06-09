@@ -78,7 +78,7 @@ http.createServer(function(req, res) {
       return;
     }
     res.writeHead(200, {'Content-Type': IMAGE_CONTENT_TYPE});
-    res.end(data, 'binary');
+    res.end(data.Body, 'binary');
     respondedFromCache = true;
     console.log('> Responded from cache:', calendarQualifiedName);
   });

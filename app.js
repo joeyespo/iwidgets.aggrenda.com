@@ -80,11 +80,11 @@ http.createServer(function(req, res) {
     res.writeHead(200, {'Content-Type': IMAGE_CONTENT_TYPE});
     res.end(data, 'binary');
     respondedFromCache = true;
-    console.log('Responded from cache:', calendarQualifiedName);
+    console.log('> Responded from cache:', calendarQualifiedName);
   });
 
   // Get widget image
-  console.log('Requested:', calendarQualifiedName);
+  console.log('> Requested:', calendarQualifiedName);
   webshot('http://aggrenda.com' + embedPath + search, renderFilename, {
     screenSize: {
      width: query.width || settings.DEFAULT_SHOT_WIDTH,
@@ -97,17 +97,17 @@ http.createServer(function(req, res) {
     quality: settings.WEBSHOTS_QUALITY,
   }, function(err) {
     if(err) {
-      console.log('Could not grab ' + calendarQualifiedName + ' calendar:', err);
+      console.log('***ERROR*** Could not grab ' + calendarQualifiedName + ' calendar:', err);
       res.writeHead(404, {'Content-Type': 'text/plain'});
       res.end('Not Found');
       return;
     }
 
     // Read resulting file
-    console.log('Rendered:', calendarQualifiedName);
+    console.log('> Rendered:', calendarQualifiedName);
     fs.readFile(renderFilename, function(err, data) {
       if (err) {
-        console.log('Error reading file for ' + calendarQualifiedName + ' calendar:', err);
+        console.log('***ERROR*** Could not read file for ' + calendarQualifiedName + ' calendar:', err);
         res.writeHead(500, {'Content-Type': 'text/plain'});
         res.end('Internal Server Error');
         return;
@@ -117,7 +117,7 @@ http.createServer(function(req, res) {
       if (!respondedFromCache) {
         res.writeHead(200, {'Content-Type': IMAGE_CONTENT_TYPE});
         res.end(data, 'binary');
-        console.log('Responded:', calendarQualifiedName);
+        console.log('> Responded:', calendarQualifiedName);
       }
 
       // Cache image
@@ -129,10 +129,10 @@ http.createServer(function(req, res) {
           ContentType: IMAGE_CONTENT_TYPE,
         }, function(err, response) {
           if (err) {
-            console.log('Error caching image for ' + calendarQualifiedName + ' calendar:', err);
+            console.log('***ERROR*** Could not cache image for ' + calendarQualifiedName + ' calendar:', err);
             return;
           }
-          console.log('Cached:', calendarQualifiedName);
+          console.log('> Cached:', calendarQualifiedName);
         });
       });
     });

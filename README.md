@@ -1,23 +1,21 @@
 Aggrenda iWidget Server
 =======================
 
-Renders Aggrenda widgets as images.
+Renders [Aggrenda calendar](http://aggrenda.com) widgets as images.
 
-This is intended to be used in `<img>` elements,
-especially in environments where `<iframe>` isn't supported.
-
-[http://iwidgets.aggrenda.com](http://iwidgets.aggrenda.com)
+This is intended to be used in `<img>` elements, especially in environments
+where `<iframe>` isn't supported (e.g. email and certain blog frameworks).
 
 
 ## Usage
 
 ```html
-<a href="http://aggrenda.com/:username/:calendar/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/:username/:calendar/:view/embed/" alt="Events" />
+<a href="http://aggrenda.com/:username/:calendar" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/:username/:calendar/:view/embed" alt="Events" />
 </a>
 ```
 
-Note the trailing `/embed/`. This is required.
+Note the trailing `embed` in the image URL. This is required.
 
 #### Parameters
 
@@ -34,58 +32,37 @@ Note the trailing `/embed/`. This is required.
 - `source` whether to show the name of the source calendar in the footer
 - `promotion` whether to show Aggrenda in the footer
 - `empty-message` the message to display when there are no events to display
+- `past` if present, renders past events instead of upcoming
 
 
 ## Examples
 
+**Note**: What you're seeing here is *live calendar data*. Click an
+example to visit the source calendar on aggrenda.com. Keep in mind that
+GitHub's aggressive caching may cause a delay here.
 
-### Monthly calendar
+### Example: Monthly calendar
 
 ```html
-<a href="http://aggrenda.com/joeyespo/technology-events/monthly/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/monthly/embed/" alt="Technology Events" />
+<a href="http://aggrenda.com/joeyespo/technology-events/monthly">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/monthly/embed" />
 </a>
 ```
 
-<a href="http://aggrenda.com/joeyespo/technology-events/monthly/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/monthly/embed/?width=852" alt="Technology Events" />
+<a href="http://aggrenda.com/joeyespo/technology-events/monthly" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/monthly/embed?width=728" width="728" />
 </a>
 
+---
 
-### Your next event
+### Example: Next three upcoming events
 
 ```html
-<a href="http://aggrenda.com/joeyespo/technology-events/monthly/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/monthly/next-event/embed/" alt="Next Up" />
+<a href="http://aggrenda.com/joeyespo/technology-events">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed?page-size=3"/>
 </a>
 ```
 
-<a href="http://aggrenda.com/joeyespo/technology-events/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/next-event/embed/?width=852" alt="Next Up" />
-</a>
-
-
-### Upcoming events
-
-```html
-<a href="http://aggrenda.com/joeyespo/technology-events/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed/" alt="Upcoming Events" />
-</a>
-```
-
-<a href="http://aggrenda.com/joeyespo/technology-events/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed/?width=852&amp;page-size=5" alt="Upcoming Events" />
-</a>
-
-
-### Past three events
-
-```html
-<a href="http://aggrenda.com/joeyespo/technology-events/?past" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed/?past&page-size=3" alt="Past" />
-</a>
-```
-
-<a href="http://aggrenda.com/joeyespo/technology-events/?past" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed/?width=852&amp;past&&amp;page-size=3" alt="Past" />
+<a href="http://aggrenda.com/joeyespo/technology-events" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed?width=728&page-size=3" width="728" />
 </a>

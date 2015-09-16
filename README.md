@@ -42,50 +42,50 @@ Note the trailing `/embed/`. This is required.
 ### Monthly calendar
 
 ```html
-<a href="http://aggrenda.com/aggrenda-pgh/technology-events/monthly/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/monthly/embed/" alt="Technology Events" />
+<a href="http://aggrenda.com/joeyespo/technology-events/monthly/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/monthly/embed/" alt="Technology Events" />
 </a>
 ```
 
-<a href="http://aggrenda.com/aggrenda-pgh/technology-events/monthly/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/monthly/embed/?width=852" alt="Technology Events" />
+<a href="http://aggrenda.com/joeyespo/technology-events/monthly/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/monthly/embed/?width=852" alt="Technology Events" />
 </a>
 
 
 ### Your next event
 
 ```html
-<a href="http://aggrenda.com/aggrenda-pgh/technology-events/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/monthly/next-event/embed/" alt="Next Up" />
+<a href="http://aggrenda.com/joeyespo/technology-events/monthly/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/monthly/next-event/embed/" alt="Next Up" />
 </a>
 ```
 
-<a href="http://aggrenda.com/aggrenda-pgh/technology-events/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/next-event/embed/?width=852" alt="Next Up" />
+<a href="http://aggrenda.com/joeyespo/technology-events/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/next-event/embed/?width=852" alt="Next Up" />
 </a>
 
 
 ### Upcoming events
 
 ```html
-<a href="http://aggrenda.com/aggrenda-pgh/technology-events/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/list/embed/" alt="Upcoming Events" />
+<a href="http://aggrenda.com/joeyespo/technology-events/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed/" alt="Upcoming Events" />
 </a>
 ```
 
-<a href="http://aggrenda.com/aggrenda-pgh/technology-events/" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/list/embed/?width=852&amp;page-size=5" alt="Upcoming Events" />
+<a href="http://aggrenda.com/joeyespo/technology-events/" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed/?width=852&amp;page-size=5" alt="Upcoming Events" />
 </a>
 
 
 ### Past three events
 
 ```html
-<a href="http://aggrenda.com/aggrenda-pgh/technology-events/?past" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/list/embed/?past&page-size=3" alt="Past" />
+<a href="http://aggrenda.com/joeyespo/technology-events/?past" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed/?past&page-size=3" alt="Past" />
 </a>
 ```
 
-<a href="http://aggrenda.com/aggrenda-pgh/technology-events/?past" title="Click for details" target="_blank">
-  <img src="http://iwidgets.aggrenda.com/aggrenda-pgh/technology-events/list/embed/?width=852&amp;past&&amp;page-size=3" alt="Past" />
+<a href="http://aggrenda.com/joeyespo/technology-events/?past" title="Click for details" target="_blank">
+  <img src="http://iwidgets.aggrenda.com/joeyespo/technology-events/list/embed/?width=852&amp;past&&amp;page-size=3" alt="Past" />
 </a>

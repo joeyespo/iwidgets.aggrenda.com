@@ -35,7 +35,7 @@ http.createServer(function(req, res) {
 
   if (urlParts.pathname == '/') {
     res.writeHead(302, {
-      'Location': 'http://aggrenda.com'
+      'Location': 'https://aggrenda.com'
     });
     res.end();
     return;
@@ -85,7 +85,7 @@ http.createServer(function(req, res) {
 
   // Get widget image
   console.log('> Requested:', calendarQualifiedName);
-  webshot('http://aggrenda.com/' + embedPath + search, renderFilename, {
+  webshot('https://aggrenda.com/' + embedPath + search, renderFilename, {
     screenSize: {
      width: query.width || settings.DEFAULT_SHOT_WIDTH,
      height: query['min-height'] || settings.DEFAULT_SHOT_MIN_HEIGHT,
